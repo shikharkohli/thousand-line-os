@@ -3,7 +3,7 @@ ENTRY(boot)
 SECTIONS {
     . = 0x80200000;
 
-    .text :{
+    .text : {
         KEEP(*(.text.boot));
         *(.text .text.*);
     }
@@ -15,14 +15,14 @@ SECTIONS {
     .data : ALIGN(4) {
         *(.data .data.*);
     }
+    
+    . = ALIGN(4);
+    . += 10 * 1024; /* 10 KB for Stack */
+    __stack_top = .;
 
     .bss : ALIGN(4) {
         __bss = .;
         *(.bss .bss.* .sbss .sbss.*);
         __bss_end = .;
     }
-
-    . = ALIGN(4);
-    . += 128 * 1024; /* 128 KB */
-    __stack_top = .;
 }

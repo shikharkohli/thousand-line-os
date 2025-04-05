@@ -77,7 +77,7 @@ __attribute__((naked))
 void boot(void) {
     __asm__ __volatile__(
         "la sp, __stack_top\n"  // Load the address of __stack_top into sp
-        "call kernel_main\n"    // Call kernel_main
+        "j kernel_main\n"    // Call kernel_main
         :
         : 
         : "sp", "ra"            // Indicate sp and ra are clobbered
